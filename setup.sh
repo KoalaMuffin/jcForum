@@ -12,4 +12,16 @@ sudo mkdir $path
 $(mysql jcForum -u$dbUser -p$dbPassword -se "TRUNCATE TABLE forumInfo")
 $(mysql jcForum -u$dbUser -p$dbPassword -se "INSERT INTO forumInfo (path) VALUES ('$path')")
 
-echo "Would you like a dedicated user database or would you like to link it to an existing one?\n"
+askUser()
+{
+  read -p "Would you like a dedicated user database (d) or would you like to link it to an existing one (l)?" userTable
+  if [ "$userTable" == "l" ]
+  then
+    read -p "The user table you are linking to MUST use on of the following encyrption methods: sha256, sha512, or MD5. It can also use no encryption. It CANNOT use salt. Proceed (Y)?" confirmLink
+    if [ "$confirmLink" != "Y" ]
+    then
+      askUser
+    fi
+  fi
+}
+askUser
