@@ -11,3 +11,5 @@ read -p "Enter where path should your forum be at such as /path/to/server/forum.
 sudo mkdir $path
 $(mysql jcForum -u$dbUser -p$dbPassword -se "TRUNCATE TABLE forumInfo")
 $(mysql jcForum -u$dbUser -p$dbPassword -se "INSERT INTO forumInfo (path) VALUES ('$path')")
+
+echo "Would you like a dedicated user database or would you like to link it to an existing one?\n"
